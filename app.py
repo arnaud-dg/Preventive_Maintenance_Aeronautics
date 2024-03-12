@@ -7,6 +7,8 @@ import plotly.express as px
 import plotly.graph_objects as go
 import pickle
 # import shap
+import requests
+import joblib
 import streamlit.components.v1 as components
 
 st.set_page_config(layout="wide", 
@@ -162,8 +164,10 @@ with col1: # PCA
 
 with col2: # Prediction + SHAP
    st.subheader("Model Predictions")
-   with open('best_model.pkl', 'rb') as file:
-        loaded_model = pickle.load(file)
+   url_modele = "https://github.com/arnaud-dg/Preventive_Maintenance_Aeronautics/raw/main/best_model.pkl"
+   reponse = requests.get(url_modele)
+   open("best_model.pkl", "wb").write(reponse.content)
+   loaded_model = joblib.load("best_model.pkl")
    sample_to_predict = X_scaled[-1,:]
    prediction=loaded_model.predict_proba(sample_to_predict.reshape(1, -1))
    normal = prediction[0][0]
