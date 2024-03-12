@@ -166,8 +166,8 @@ with col2: # Prediction + SHAP
    st.subheader("Model Predictions")
    url_modele = "https://github.com/arnaud-dg/Preventive_Maintenance_Aeronautics/raw/main/best_model.pkl"
    reponse = requests.get(url_modele)
-   open("best_model.pkl", "wb").write(reponse.content)
-   loaded_model = pickle.load("best_model.pkl")
+   with open('best_model.pkl', 'rb').write(reponse.content) as file:
+     loaded_model = pickle.load(file)
    sample_to_predict = X_scaled[-1,:]
    prediction=loaded_model.predict_proba(sample_to_predict.reshape(1, -1))
    normal = prediction[0][0]
