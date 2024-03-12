@@ -14,7 +14,7 @@ st.set_page_config(layout="wide",
                    page_title="Pred. Maintenance")
 # st.title('🛠️ Predictive Maintenance Interface')
 st.markdown("<h1 style='text-align: center; color: #323232;'>🛠️ Predictive Maintenance Interface 📉</h1>", unsafe_allow_html=True)
-shap.initjs()
+# shap.initjs()
 
 # Load the dataset
 @st.cache_data
