@@ -192,9 +192,9 @@ with col2: # Prediction + SHAP
 
 st.divider()
 
-def st_shap(plot, height=None):
-    shap_html = f"<head>{shap.getjs()}</head><body>{plot.html()}</body>"
-    components.html(shap_html, height=height)
+# def st_shap(plot, height=None):
+#    shap_html = f"<head>{shap.getjs()}</head><body>{plot.html()}</body>"
+#    components.html(shap_html, height=height)
 
 # XAI
 #st.header("Explainability of the model")
