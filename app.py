@@ -6,7 +6,7 @@ from sklearn.preprocessing import StandardScaler
 import plotly.express as px
 import plotly.graph_objects as go
 import pickle
-import shap
+# import shap
 import streamlit.components.v1 as components
 
 st.set_page_config(layout="wide", 
@@ -195,14 +195,11 @@ st.divider()
 # def st_shap(plot, height=None):
 #    shap_html = f"<head>{shap.getjs()}</head><body>{plot.html()}</body>"
 #    components.html(shap_html, height=height)
-
 # XAI
-#st.header("Explainability of the model")
+# st.header("Explainability of the model")
 # compute SHAP values
 # explainer = shap.TreeExplainer(loaded_model)
 # choosen_instance = sample_to_predict.reshape(1, -1)
 # shap_values = explainer.shap_values(choosen_instance)
-
 # st.pyplot(shap.plots.text(shap_values))
-
 # st_shap(shap.force_plot(explainer.expected_value[1], shap_values[1], choosen_instance, matplotlib=True))
