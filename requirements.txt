@@ -7,4 +7,5 @@ matplotlib
 plotly
 shap
 requests
+seaborn
 joblib
