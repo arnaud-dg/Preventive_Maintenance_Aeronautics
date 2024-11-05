@@ -8,7 +8,8 @@ import plotly.graph_objects as go
 import pickle
 # import shap
 import requests
-import joblib
+from joblib import load
+from io import BytesIO
 import streamlit.components.v1 as components
 
 st.set_page_config(layout="wide", 
@@ -16,7 +17,17 @@ st.set_page_config(layout="wide",
                    page_title="Pred. Maintenance")
 # st.title('🛠️ Predictive Maintenance Interface')
 st.markdown("<h1 style='text-align: center; color: #323232;'>🛠️ Predictive Maintenance Interface 📉</h1>", unsafe_allow_html=True)
-# shap.initjs()
+st.markdown(
+    """
+    <style>
+    .stDivider {
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+    </style>
+    """, 
+    unsafe_allow_html=True
+)
 
 # Load the dataset
 @st.cache_data
@@ -59,6 +70,9 @@ def sample_selection(df, stats_df):
 df, stats_df = load_data()
 
 # Intro
+# Image loading
+st.sidebar.image('assets/logo.png', width=200)
+st.sidebar.divider()
 st.sidebar.header("Introduction")
 st.sidebar.write("This web application aims to illustrate the **Predictive Maintenance project** proposed by [Arnaud Duigou](https://arnaud-dg.github.io/). This project involves to predict the risk of a machine breakdown using Machine Learning tools.")
 st.sidebar.divider()
@@ -66,9 +80,6 @@ st.sidebar.header("How does it works")
 st.sidebar.write("- Data from 24 sensors connected to turbines were used to train a Machine Learning model. This training data, after a dimension reduction step, results in the 3D scatterplot shown here. Each record is associated with a risk of breakdown corresponding to the colors: **:red[Red (High Risk)]**, **:orange[Amber (Low Risk)]**, **:green[Green (Standard state)]**.")
 st.sidebar.write("- When you click on the **Simulate new data** button, the program will randomly generate a new configuration of values that does not exist in the training dataset.")
 st.sidebar.write("- This will simulate a new data transmission from a machine, and this new state will appear in **:violet[purple]** on the SD scatterplot. The Machine Learning classification model will then make a prediction to indicate the associated risk level, as well as the maintenance actions to be taken.")
-st.sidebar.divider()
-st.sidebar.header("Detailed article")
-st.sidebar.write("If you want to learn furthermore about this project, please consult the medium article : weblink to replace")
 
 # Display the results
 sample = sample_selection(df, stats_df)
@@ -164,9 +175,9 @@ with col1: # PCA
 
 with col2: # Prediction + SHAP
    st.subheader("Model Predictions")
-   url_modele = "https://github.com/arnaud-dg/Preventive_Maintenance_Aeronautics/raw/main/best_model.pkl"
+   url_modele = "https://github.com/arnaud-dg/Preventive_Maintenance_Aeronautics/raw/main/pred_maint_random_forest_2024_11_01.joblib"
    response = requests.get(url_modele)
-   loaded_model = pickle.loads(response.content)
+   loaded_model = load(BytesIO(response.content))
    sample_to_predict = X_scaled[-1,:]
    prediction=loaded_model.predict_proba(sample_to_predict.reshape(1, -1))
    normal = prediction[0][0]
@@ -194,15 +205,3 @@ with col2: # Prediction + SHAP
     #    st.markdown("The new point is predicted with a **:red[High risk of failure]**.")
 
 st.divider()
-
-# def st_shap(plot, height=None):
-#    shap_html = f"<head>{shap.getjs()}</head><body>{plot.html()}</body>"
-#    components.html(shap_html, height=height)
-# XAI
-# st.header("Explainability of the model")
-# compute SHAP values
-# explainer = shap.TreeExplainer(loaded_model)
-# choosen_instance = sample_to_predict.reshape(1, -1)
-# shap_values = explainer.shap_values(choosen_instance)
-# st.pyplot(shap.plots.text(shap_values))
-# st_shap(shap.force_plot(explainer.expected_value[1], shap_values[1], choosen_instance, matplotlib=True))
