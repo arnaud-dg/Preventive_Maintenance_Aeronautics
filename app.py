@@ -163,7 +163,7 @@ with col1: # PCA
    fig.update_layout(scene_camera=camera)
    fig.update_traces(marker=dict(line_width=0))
    fig.update_traces(selector=dict(name='0'), name='Normal', marker=dict(color='green'))
-   fig.update_traces(selector=dict(name='1'), name='Low risk', marker=dict(color='orange'))
+   fig.update_traces(selector=dict(name='1'), name='Moderate risk', marker=dict(color='orange'))
    fig.update_traces(selector=dict(name='2'), name='High risk', marker=dict(color='red'))
    fig.update_traces(selector=dict(name='3'), showlegend=False)
    fig.update_layout(title={
@@ -202,7 +202,7 @@ with col2: # Prediction + SHAP
        st.success("The current state is predicted as **Normal condition**. Maintenance is **not required**.")
    elif config == 2:
        st.warning("The current state is predicted as **Moderate risk of failure**. It is ""required to plan** an intervention.")
-    #    st.markdown("The new point is predicted with a **:orange[Low risk of failure]**.")
+    #    st.markdown("The new point is predicted with a **:orange[Moderate risk of failure]**.")
    else:
        st.error("The current state is predicted as **High risk of failure**. Maintenance is **required**, as soon as possible.")
     #    st.markdown("The new point is predicted with a **:red[High risk of failure]**.")
