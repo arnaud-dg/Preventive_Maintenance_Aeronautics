@@ -1,5 +1,6 @@
 # Aircraft Predictive Maintenance
 A machine learning application that predicts the risk of failure in aircraft engines using sensor data, helping to optimize maintenance scheduling and prevent unexpected breakdowns.
+Link to the app : https://preventivemaintenanceaeronautics-fjonxrqfymxmggytlrqfew.streamlit.app/
 
 ## Table of Contents
 
@@ -31,22 +32,7 @@ This project implements a predictive maintenance system for aircraft engines usi
 - Customizable Alerting: Different maintenance recommendations based on risk level
 
 ## Project Structure
-
-notebooks/
-├── Part_1_EDA.ipynb            # Exploratory Data Analysis
-└── Part_2_Model.ipynb          # Model Training and Evaluation
-
-data/
-├── PM_train.txt               # Training dataset
-├── PM_test.txt               # Testing dataset
-└── PM_truth.txt              # Ground truth data
-
-models/
-└── pred_maint_random_forest_2024_11_01.pkl    # Trained model
-
-app.py                        # Streamlit web application
-functions_library.py          # Helper functions
-requirements.txt              # Project dependencies
+<img src="assets/Repo_structure.jpg" alt="Repository Structure" width="600"/>
 
 ## Installation
 
