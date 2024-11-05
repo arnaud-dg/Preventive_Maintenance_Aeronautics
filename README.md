@@ -33,17 +33,20 @@ This project implements a predictive maintenance system for aircraft engines usi
 ## Project Structure
 
 ├── notebooks/
-│   ├── Part_1_EDA.ipynb         # Exploratory Data Analysis
-│   └── Part_2_Model.ipynb       # Model Training and Evaluation
+│   ├── Part_1_EDA.ipynb            # Exploratory Data Analysis
+│   └── Part_2_Model.ipynb          # Model Training and Evaluation
+│
 ├── data/
-│   ├── PM_train.txt            # Training dataset
-│   ├── PM_test.txt             # Testing dataset
-│   └── PM_truth.txt            # Ground truth data
+│   ├── PM_train.txt                # Training dataset
+│   ├── PM_test.txt                 # Testing dataset
+│   └── PM_truth.txt                # Ground truth data
+│
 ├── models/
 │   └── pred_maint_random_forest_2024_11_01.pkl    # Trained model
-├── app.py                      # Streamlit web application
-├── functions_library.py        # Helper functions
-└── requirements.txt           # Project dependencies
+│
+├── app.py                          # Streamlit web application
+├── functions_library.py            # Helper functions
+└── requirements.txt                # Project dependencies
 
 ## Installation
 
