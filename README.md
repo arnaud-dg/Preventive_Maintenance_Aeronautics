@@ -1,38 +1,119 @@
-# Predictive Maintenance of Aircraft Engines
-## Overview
-This project focuses on the predictive maintenance of aircraft engines, employing advanced machine learning techniques to forecast potential failures and optimize maintenance schedules. The goal is to enhance the reliability and efficiency of aircraft engines, reducing downtime and maintenance costs.
+# Aircraft Predictive Maintenance
+A machine learning application that predicts the risk of failure in aircraft engines using sensor data, helping to optimize maintenance scheduling and prevent unexpected breakdowns.
 
-##Features
-Exploratory Data Analysis (EDA) Notebook: This Jupyter notebook contains a comprehensive analysis of the dataset, including data cleaning, visualization, and statistical analysis to uncover insights and patterns.
-Modeling Notebook: Implements various machine learning models to predict engine failures. It includes data preprocessing, feature engineering, model training, and evaluation.
-Dataset
-The dataset used in this project consists of sensor data and operational settings from aircraft engines. It includes parameters like temperature, pressure, speed, and other relevant measurements.
+## Table of Contents
 
-## Technology Stack
-Python
-Pandas for data manipulation
-Matplotlib & Seaborn for data visualization
-Scikit-Learn for machine learning modeling
-Installation
-Clone the repository and install the required dependencies:
+- Introduction
+- Features
+- Project Structure
+- Installation
+- Usage
+- Model Details
+- Dependencies
+- Documentation
+- License
 
-bash
-Copy code
-git clone [Your-Repository-URL]
-cd [Your-Repository-Name]
+## Introduction
+This project implements a predictive maintenance system for aircraft engines using machine learning techniques. It analyzes real-time sensor data to predict potential failures before they occur, enabling proactive maintenance scheduling and reducing downtime. The system uses a Random Forest classifier trained on historical sensor data to categorize the engine's state into three risk levels: Normal, Low Risk, and High Risk.
+
+
+## Features
+
+- Real-time Risk Assessment: Analyzes 24 different sensor measurements to predict engine failure risk
+- Interactive 3D Visualization: PCA-based dimensionality reduction for intuitive data visualization
+- Multi-class Classification: Categorizes engine state into three risk levels:
+    - Normal Condition (Green)
+    - Low Risk of Failure (Orange)
+    - High Risk of Failure (Red)
+
+- Sensor Importance Analysis: SHAP values and feature importance visualization
+- Web Interface: User-friendly Streamlit dashboard for real-time monitoring
+- Customizable Alerting: Different maintenance recommendations based on risk level
+
+## Project Structure
+
+├── notebooks/
+│   ├── Part_1_EDA.ipynb         # Exploratory Data Analysis
+│   └── Part_2_Model.ipynb       # Model Training and Evaluation
+├── data/
+│   ├── PM_train.txt            # Training dataset
+│   ├── PM_test.txt             # Testing dataset
+│   └── PM_truth.txt            # Ground truth data
+├── models/
+│   └── pred_maint_random_forest_2024_11_01.pkl    # Trained model
+├── app.py                      # Streamlit web application
+├── functions_library.py        # Helper functions
+└── requirements.txt           # Project dependencies
+
+## Installation
+
+1. Clone the repository:
+git clone https://github.com/yourusername/aircraft-predictive-maintenance.git
+cd aircraft-predictive-maintenance
+
+2. Set up a virtual environment:
+python -m venv env
+source env/bin/activate  # On Windows use `env\Scripts\activate`
+
+3. Install dependencies:
 pip install -r requirements.txt
-Usage
-To use this project, navigate to the notebook directory and launch Jupyter Notebook:
 
-bash
-Copy code
-cd notebooks
-jupyter notebook
-Contributing
-Contributions to this project are welcome. Please fork the repository and submit a pull request with your changes.
+4. Launch the web application:
+streamlit run app.py
+
+## Web Interface
+The Streamlit dashboard provides:
+
+1. Real-time sensor data visualization
+2. Risk level prediction
+3. Maintenance recommendations
+4. Interactive 3D PCA plot
+5. Feature importance analysis
+
+## Data Format
+Input data should include measurements from 24 sensors:
+- 3 operational settings
+- 21 sensor measurements including temperatures, pressures, speeds, and ratios
+
+## Model Details
+Training Data : 
+- Historical sensor data from multiple engine units
+- Each engine starts from different degrees of initial wear
+- Run until failure with sensor readings at each cycle
+
+Machine Learning Pipeline
+1. Data Preprocessing:
+    - Feature engineering
+    - Standardization
+    - SMOTE for class balance
+
+2. Model Architecture:
+    - Random Forest Classifier
+    - Optimized hyperparameters
+    - Custom scoring function for maintenance timing
+
+3. Performance Metrics:
+    - High recall for Low Risk class (87%)
+    - Zero missed critical failures
+    - 76% overall accuracy
+
+## Dependencies
+- Python 3.8+
+- Streamlit
+- Scikit-learn
+- Pandas
+- NumPy
+- Plotly
+- SHAP
+
+## Documentation
+Detailed documentation of the different steps is available in the notebooks:
+- Part_1_EDA.ipynb: Comprehensive data analysis and feature engineering
+- Part_2_Model.ipynb: Model development, training, and evaluation
 
 ## License
-This project is licensed under the MIT License - see the LICENSE.md file for details.
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-## Contact
-For any inquiries or collaboration requests, please contact [Your Name] at [Your Email].
+---
+
+Created by Arnaud Duigou

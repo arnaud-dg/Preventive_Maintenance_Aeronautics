@@ -21,7 +21,7 @@ st.markdown("<h1 style='text-align: center; color: #323232;'>🛠️ Predictive 
 # Load the dataset
 @st.cache_data
 def load_data():
-    df = pd.read_csv('train.csv')
+    df = pd.read_csv('data/train.csv')
     features = ['setting1','setting2','setting3','s1','s2','s3','s4','s5','s6','s7','s8','s9','s10','s11',
             's12','s13','s14','s15','s16','s17','s18','s19','s20','s21','label_mcc']
     df = df[features]
