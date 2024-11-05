@@ -11,23 +11,26 @@ import requests
 from joblib import load
 from io import BytesIO
 import streamlit.components.v1 as components
+from notebooks.functions_library import custom_scoring
 
 st.set_page_config(layout="wide", 
                    page_icon="🛠️", 
                    page_title="Pred. Maintenance")
 # st.title('🛠️ Predictive Maintenance Interface')
 st.markdown("<h1 style='text-align: center; color: #323232;'>🛠️ Predictive Maintenance Interface 📉</h1>", unsafe_allow_html=True)
-st.markdown(
-    """
-    <style>
-    .stDivider {
-        margin-top: 0px;
-        margin-bottom: 0px;
+# CSS style
+st.markdown("""
+<style>
+    [data-testid="stSidebarUserContent"] div.stMarkdown {
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
     }
-    </style>
-    """, 
-    unsafe_allow_html=True
-)
+    [data-testid="stSidebarUserContent"] hr {
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+</style>
+""", unsafe_allow_html=True)
 
 # Load the dataset
 @st.cache_data
@@ -71,7 +74,7 @@ df, stats_df = load_data()
 
 # Intro
 # Image loading
-st.sidebar.image('assets/logo.png', width=200)
+st.sidebar.image('assets/logo.png', use_column_width=True)
 st.sidebar.divider()
 st.sidebar.header("Introduction")
 st.sidebar.write("This web application aims to illustrate the **Predictive Maintenance project** proposed by [Arnaud Duigou](https://arnaud-dg.github.io/). This project involves to predict the risk of a machine breakdown using Machine Learning tools.")
@@ -175,7 +178,7 @@ with col1: # PCA
 
 with col2: # Prediction + SHAP
    st.subheader("Model Predictions")
-   url_modele = "https://github.com/arnaud-dg/Preventive_Maintenance_Aeronautics/raw/main/pred_maint_random_forest_2024_11_01.joblib"
+   url_modele = "https://github.com/arnaud-dg/Preventive_Maintenance_Aeronautics/raw/refs/heads/main/models/pred_maint_random_forest_2024_11_01.joblib"
    response = requests.get(url_modele)
    loaded_model = load(BytesIO(response.content))
    sample_to_predict = X_scaled[-1,:]
@@ -192,13 +195,13 @@ with col2: # Prediction + SHAP
        prediction_text = "High risk"
 
    st.slider('Normal condition proba.', 0.0, 1.0, normal)
-   st.slider('Low risk of failure proba.', 0.0, 1.0, low)
+   st.slider('Moderate risk of failure proba.', 0.0, 1.0, low)
    st.slider('High risk of failure proba.', 0.0, 1.0, high)
    if config == 1:
     #    st.markdown("The new point is predicted as **:green[Normal condition]**.")
        st.success("The current state is predicted as **Normal condition**. Maintenance is **not required**.")
    elif config == 2:
-       st.warning("The current state is predicted as **Low risk of failure**. It is ""required to plan** an intervention.")
+       st.warning("The current state is predicted as **Moderate risk of failure**. It is ""required to plan** an intervention.")
     #    st.markdown("The new point is predicted with a **:orange[Low risk of failure]**.")
    else:
        st.error("The current state is predicted as **High risk of failure**. Maintenance is **required**, as soon as possible.")

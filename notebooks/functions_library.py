@@ -5,6 +5,30 @@ from scipy.stats import skew, kurtosis
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+def custom_scoring(y_true, y_pred):
+    """
+    Custom scoring function that penalizes misclassification of class 1 as class 0.
+    
+    Args:
+        y_true: True labels
+        y_pred: Predicted labels
+        
+    Returns:
+        float: Score where misclassifying class 1 as 0 is heavily penalized
+    """
+    # Claculation of a confusion matrix to define a specific "recall custom score"
+    cm = confusion_matrix(y_true, y_pred)
+    # Specific penalty for classifying class 1 as class 0
+    false_negatives_1_as_0 = cm[1][0] 
+    
+    # Calculate standard metrics
+    accuracy = metrics.accuracy_score(y_true, y_pred)
+    recall_class_1 = metrics.recall_score(y_true, y_pred, labels=[1], average=None)[0]
+    
+    # Custom score that heavily weights recall for class 1
+    score = (0.7 * recall_class_1 + 0.3 * accuracy) * (1 - 0.1 * false_negatives_1_as_0)
+    return score
+
 def add_features(df_in, rolling_win_size):
     
     """Add rolling average and rolling standard deviation for sensors readings using fixed rolling window size.
